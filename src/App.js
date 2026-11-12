@@ -1,7 +1,14 @@
 
 import React, { useState } from "react";
-import ExpenseForm from "./ExpenseForm";
-import ExpenseList from "./ExpenseList";
+import { Routes, Route } from "react-router-dom";
+
+import Navbar from "./Navbar";
+import AddExpensePage from "./pages/AddExpensePage";
+import ExpensesPage from "./pages/ExpensesPage";
+import Summary from "./pages/summary";
+import NotFound from "./pages/Notfound";
+
+import "./App.css";
 
 function App() {
   const [expenses, setExpenses] = useState([
@@ -39,14 +46,31 @@ function App() {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div className="app">
       <h1>Expense Tracker</h1>
 
-      <ExpenseForm onAddExpense={handleAddExpense} />
+      <Navbar />
 
-      <hr />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <AddExpensePage onAddExpense={handleAddExpense} />
+          }
+        />
 
-      <ExpenseList expenses={expenses} />
+        <Route
+          path="/expenses"
+          element={<ExpensesPage expenses={expenses} />}
+        />
+
+        <Route
+          path="/summary"
+          element={<Summary expenses={expenses} />}
+        />
+
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </div>
   );
 }
