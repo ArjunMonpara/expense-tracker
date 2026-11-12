@@ -1,7 +1,13 @@
 
-import React from "react";
+import React, { useContext } from "react";
+import { ExpenseContext } from "../ExpenseContext";
+import { BudgetContext } from "../BudgetContext";
 
-function Summary({ expenses }) {
+function Summary() {
+  const { expenses } = useContext(ExpenseContext);
+
+  const { budget, setBudget } = useContext(BudgetContext);
+
   const totalSpent = expenses.reduce(
     (total, expense) => total + expense.amount,
     0
@@ -27,6 +33,16 @@ function Summary({ expenses }) {
       <h2>Expense Summary</h2>
 
       <h3>Total Spent: ₹{totalSpent}</h3>
+
+      <h3>Monthly Budget</h3>
+
+      <input
+        type="number"
+        value={budget}
+        onChange={(event) => setBudget(Number(event.target.value))}
+      />
+
+      <h3>Left: ₹{budget - totalSpent}</h3>
 
       <h3>Category Wise Expenses</h3>
 

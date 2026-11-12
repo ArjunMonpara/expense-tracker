@@ -10,6 +10,8 @@
   padding: 15px 0;
   border-bottom: 1px solid gray;
   margin-bottom: 20px;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .navbar a {
